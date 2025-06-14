@@ -1,0 +1,191 @@
+
+AI/LLM KNOWN ISSUES LOG:
+
+Explicitly document issues as follows:
+
+- Issue: ____________________
+- Common cause: ____________________
+- Step-by-step resolution: ____________________
+- Confirm understanding clearly: [Yes/No] ______
+
+AI/LLM KNOWN ISSUES LOG:
+
+********AI 1
+
+- Issue: p5.js background animation not playing/motionless on some page loads.
+- Common cause: Canvas is created before parent container is visible or sized, or p5.js sketch is not re-triggered after AJAX/SPA content load.
+- Step-by-step resolution:
+  1. Always use an explicit initialization check (IntersectionObserver or container size polling) before starting p5 sketch.
+  2. Destroy and re-create p5 instances on AJAX/SPA navigation to avoid “hung” canvases.
+  3. Confirm no duplicate canvases are present in DOM.
+  4. Confirm canvas container is sized before initializing (wait for element size, not just DOMContentLoaded).
+- Confirm understanding clearly: [Yes/No] ______
+
+---
+
+- Issue: GSAP/SplitText animations not triggering or animating only on first load.
+- Common cause: SplitText lines are not re-split after AJAX/SPA navigation, or ScrollTrigger not refreshed.
+- Step-by-step resolution:
+  1. After each AJAX/SPA content change, rerun SplitText setup on relevant elements.
+  2. Call `ScrollTrigger.refresh()` after DOM changes or animation injection.
+  3. Double-check selectors match new page content structure.
+- Confirm understanding clearly: [Yes/No] ______
+
+---
+
+- Issue: Dot grid and haze backgrounds are not visually consistent across “load wave” and “main” backgrounds.
+- Common cause: Responsive logic or color config diverges between two background modes; p5 instances using different grid/dot/size settings.
+- Step-by-step resolution:
+  1. Centralize grid/dot color and sizing config in one JS module.
+  2. Always use the same responsive logic for grid on all backgrounds.
+  3. Test on mobile and desktop—ensure breakpoints behave identically in all background variants.
+- Confirm understanding clearly: [Yes/No] ______
+
+---
+
+- Issue: Editing in Semplice causes invisible cursor over p5 canvas.
+- Common cause: Semplice admin/editor overlays or iFrames conflicting with pointer/cursor events on canvas layer.
+- Step-by-step resolution:
+  1. In admin mode, set `pointer-events: auto` or remove `pointer-events: none` on canvas temporarily.
+  2. Ensure z-index and stacking does not hide cursor over editable areas.
+  3. Consider toggling canvas visibility or interaction based on editing state.
+- Confirm understanding clearly: [Yes/No] ______
+
+---
+
+- Issue: Animations or reveals break on mobile or very wide screens.
+- Common cause: Dot grid or mask sizing not responsive, or sections losing 100vh height.
+- Step-by-step resolution:
+  1. Audit `getResponsiveGridSettings()` or equivalent responsive code.
+  2. Use CSS `min-height: 100vh` for all full-bleed animated sections.
+  3. Test and tweak for all device widths in browser.
+- Confirm understanding clearly: [Yes/No] ______
+
+********AI 2
+
+ISSUE: Hero Section (Section 1) animation logic breaks if DOM structure or markup changes.
+WHEN: Hero headline markup is updated, or SplitText is re-applied.
+EXPECTED: Mask-in/mask-out works regardless of markup; SplitText wrappers only applied once.
+
+ISSUE: "Select Projects" (Section 2) title animation trigger unreliable.
+WHEN: On mobile, resize, or fast scroll between sections 1 and 3.
+EXPECTED: "Select Projects" title always exits before first project title animates in; no overlap.
+
+ISSUE: Project section modularity not robust.
+WHEN: Manual application of classes (e.g. .project-section--[project-name]) is missed or duplicated.
+EXPECTED: Each project triggers correct dot nav, entry/exit animation, and is scrollable via nav dot.
+
+ISSUE: Dot navigation ("scroll-to-dot") fails when multiple project sections are in viewport.
+WHEN: Wide or tall viewports, rapid scrolling, or slow device performance.
+EXPECTED: Only one dot is visible and active at any scroll position.
+
+ISSUE: Background p5.js canvas elements stack on SPA/page transitions.
+WHEN: Navigating via SPA, content reload, or appending new sections.
+EXPECTED: Only one canvas per background type is present; old canvases are destroyed on transition.
+
+ISSUE: SplitText wrapper classes (.masked-line/.masked-line-inner) become inconsistent on DOM updates.
+WHEN: Animations are re-initialized or SplitText runs multiple times on same element.
+EXPECTED: Only one set of wrappers per line; animation code is idempotent.
+
+ISSUE: Pinning logic for sections 1–8 conflicts with Semplice layout changes.
+WHEN: Semplice updates DOM, or nested wrappers are modified in editor.
+EXPECTED: Only background is pinned between sections 1–8, with no overlay/content conflicts.
+
+ISSUE: Final project/About transition is abrupt or not responsive.
+WHEN: About section enters or viewport is changed.
+EXPECTED: Final project remains pinned and transitions smoothly until About fully covers; responsive to viewport.
+
+ISSUE: Test/dummy selectors remain in codebase.
+WHEN: Updating selector log, refactoring, or releasing production code.
+EXPECTED: Only live, intentional selectors present; test classes are cleaned up.
+
+ISSUE: Selector log/manual documentation out-of-sync with current code.
+WHEN: New selectors or modules added.
+EXPECTED: AI_AGENT_SELECTOR_LOG.txt and this file always reflect current state; update automated if possible.
+
+********AI 3
+
+AI/LLM KNOWN ISSUES LOG:
+
+- Issue: Section-1 pin/reveal not initializing or unpinning correctly.
+  Common cause: ScrollTrigger instance created before content is fully loaded or incorrect trigger/end elements.
+  Step-by-step resolution:
+    1. Delay ScrollTrigger.create() until after full page load (e.g. wrap in `window.onload` or ScrollTrigger’s refresh).
+    2. Verify `.brandon-section1-pin` and `#about-section` selectors exist when ScrollTrigger runs.
+    3. Use `ScrollTrigger.refresh()` after SPA/AJAX content injection.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: Intro copy animates out immediately on load.
+  Common cause: “start: 'top -=25%'” scroll position fires before user scrolls.
+  Step-by-step resolution:
+    1. Change `start: "top -=25%"` to an absolute viewport-based trigger (e.g. `"bottom top-=25%"`).
+    2. Or add an offset: `start: "top top+=25%"`.
+    3. Test with markers to confirm correct timeline activation.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: SplitText called before fonts loaded.
+  Common cause: GSAP SplitText runs immediately on DOMContentLoaded, before web fonts finish loading.
+  Step-by-step resolution:
+    1. Wrap `new SplitText()` calls inside a `FontFaceObserver` or `document.fonts.ready.then(...)`.
+    2. Or delay hero animation until `window.onload`.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: GSAP/SplitText animations only work on first load.
+  Common cause: On SPA navigation, new content is injected without re-running SplitText and ScrollTrigger registration.
+  Step-by-step resolution:
+    1. Listen for `sempliceAppendContent` and re-run your hero and copy animations.
+    2. Call `ScrollTrigger.refresh()` after appending.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: Nav menu (mediaelement) broke after dequeuing conflicting scripts.
+  Common cause: Over-eager dequeue of any script whose URL contains “mediaelement”.
+  Step-by-step resolution:
+    1. Target only the exact handles throwing errors (`mediaelement-and-pla`, `mediaelement-migrate`).
+    2. Use `wp_dequeue_script('mediaelement-and-pla')` only, and avoid bulk deregister of all mediaelement scripts.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: p5.js canvas not showing or animating on some loads.
+  Common cause: Canvas initialized before container has width/height or before SPA content injection.
+  Step-by-step resolution:
+    1. Poll for container size (e.g. `waitForElementSizeAndInit`) before calling `new p5()`.
+    2. Use `IntersectionObserver` to start/stop sketch only when section enters viewport.
+    3. Destroy old canvas and re-create on SPA navigation.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: “semplice is not defined” errors in console.
+  Common cause: Attempting to call `semplice.animate.gsap(...)` before Semplice’s global object is available.
+  Step-by-step resolution:
+    1. Wrap any `semplice.*` calls in a check, e.g. `if (window.semplice) { … }`.
+    2. Or listen for Semplice’s own events before initialization (`sempliceAppendContent`).
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: Dot grid / haze backgrounds inconsistent.
+  Common cause: Two separate p5 factories use slightly different responsive breakpoints.
+  Step-by-step resolution:
+    1. Consolidate `getResponsiveGridSettings()` into a single imported module.
+    2. Use identical parameters for all background types.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: Project-section selectors out of sync with code.
+  Common cause: Manual class names in Semplice editor don’t exactly match your JavaScript selectors.
+  Step-by-step resolution:
+    1. Inspect actual `smp-section` markup for your custom classes.
+    2. Update `document.querySelectorAll(...)` selectors to match those exact class names.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: ScrollTrigger markers show mis-placed start/end points.
+  Common cause: `start`/`end` definitions use relative offsets that don’t align with actual section heights.
+  Step-by-step resolution:
+    1. Temporarily enable `markers: true` to visually debug.
+    2. Adjust `start`/`end` lines to pixel values if percentage-based triggers misbehave.
+  Confirm understanding clearly: [Yes/No] ______
+
+- Issue: Full JS files were abbreviated in patches, causing missing functionality.
+  Common cause: Partial code snippets in replies rather than full script.
+  Step-by-step resolution:
+    1. Always deliver the **entire** `brandon-custom-scripts.js` file with every update.
+    2. Wrap updates in clear comment blocks so copy/paste is seamless.
+  Confirm understanding clearly: [Yes/No] ______
+
+
+[Prompt for Brandon: "Provide clear details or historical solutions to recurring issues you have faced."]

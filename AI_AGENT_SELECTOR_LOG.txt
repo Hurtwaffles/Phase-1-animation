@@ -1,0 +1,216 @@
+
+AI/LLM SELECTOR & DOM LOG:
+
+Every selector must be logged explicitly:
+
+- Selector/Class Name: ____________________
+- File Location(s): ____________________
+- Explicit purpose: ____________________
+- Known conflicts reviewed? [Yes/No]: ______
+
+AI_AGENT_SELECTOR_LOG
+
+********AI 1
+
+# Animated Section Selectors (Semplice Portfolio Animations)
+
+1. .section-hero-test
+- Purpose: Dummy/test section for hero intro animation on unpublished/test pages.
+- Used for: Masked line-by-line upward reveal of hero copy.
+- Known conflicts: None, only applied to playtest sections.
+
+2. .hero-copy-test
+- Purpose: Inner container for hero text (section 1).
+- Used for: GSAP/SplitText-like line-by-line reveal.
+- Known conflicts: None, as long as unique to test/demo pages.
+
+3. .section-select-projects-test
+- Purpose: Dummy/test section for "Select Projects" title section on unpublished/test pages.
+- Used for: Masked line-by-line bottom-up reveal.
+- Known conflicts: None, only for test/play pages.
+
+4. .select-projects-title-test
+- Purpose: Inner container for section 2 title.
+- Used for: GSAP/SplitText-like line-by-line reveal on scroll.
+- Known conflicts: None, unique to dummy section.
+
+5. .masked-line / .masked-line-inner
+- Purpose: Dynamically added by JS to wrap each text line for masking/reveal.
+- Used for: Animation masking, line-by-line transition.
+- Known conflicts: Do not manually add; always generate with SplitText/JS.
+- Additional: `.is-revealed` state triggers CSS transition.
+
+6. .brandon-bg-main-bg, .brandon-main-background
+- Purpose: Applied to main section backgrounds for haze/dot grid p5.js animation.
+- Used for: Container selection by background injector JS.
+- Known conflicts: Multiple backgrounds can exist if SPA navigation not handled; clear/destroy old canvases on SPA events.
+
+7. .brandon-bg-load-wave, .brandon-load-wave
+- Purpose: Section and container for “load wave” animated background.
+- Used for: Hero/intro background, p5.js wave reveal.
+- Known conflicts: Same as above; ensure only one active per section.
+
+8. .brandon-bg-main-bg2, .brandon-main-background2
+- Purpose: For alternate (white) version of background on project pages.
+- Used for: Matching dot grid haze, different color scheme (white bg, muted dots).
+- Known conflicts: None, as long as grid config stays synced with .brandon-main-background.
+
+9. .project-section--[project-name]  (e.g. .project-section--coors)
+- Purpose: Unique per-project section class for reveal targeting, dot color, scroll triggers, and sticky nav dot.
+- Used for: Animations, scroll-to, and project indicator dot color logic.
+- Known conflicts: If duplicated, ensure data attributes or class are unique per project.
+
+10. .project-reveal, .reveal
+- Purpose: Shared animation targeting for project image/title reveals.
+- Used for: GSAP ScrollTrigger, SplitText line masking.
+- Known conflicts: None, best for batch selection in JS.
+
+11. .scroll-to-dot
+- Purpose: Right gutter sticky project nav dot.
+- Used for: GSAP sticky/fade/scale/hover/reveal animation, color set via class or data attribute.
+- Known conflicts: Only one dot should be sticky per project in view; reverse animation if scrolling back up past section.
+
+12. .about-section, .about-reveal
+- Purpose: About section and its animated elements.
+- Used for: On-appear GSAP/SplitText reveal for each element (copy, headline, images).
+- Known conflicts: None; ensure targets are not nested inside other .reveal elements to avoid double animating.
+
+# Notes:
+- For all selectors, ensure Semplice-generated wrappers do not alter/override intended structure.
+- If DOM structure changes, update selectors here and in scripts.
+- For debugging, always cross-check with actual class names in DevTools.
+- Keep selector log current with all new sections/components.
+
+********AI 2
+
+# SECTION 1: HERO / INTRO
+SELECTOR: .brandon-hero-title
+USAGE: Main headline text in hero section. Receives GSAP SplitText mask animation (lines animate in on load, animate out on scroll). Only one element per page.
+REQUIRED FOR: Section 1 (pinned). Must be present for initial reveal and scroll-out animation.
+
+# SECTION 2: SELECT PROJECTS
+SELECTOR: .brandon-select-projects-title
+USAGE: Headline in Section 2. SplitText mask reveal in, then out (on project 1 title reveal).
+REQUIRED FOR: Section 2 (pinned headline).
+
+# PROJECT SECTIONS (Sections 3–7)
+SELECTOR: .brandon-project-section
+USAGE: Wrapper for each project section (one per project). Required for dot nav activation, scroll-triggered entry/exit animations.
+REQUIRED FOR: Each project section in main scroll stack.
+
+SELECTOR: .brandon-project-title
+USAGE: Title for each project (in same grid/position as select-projects headline for seamless swap). Receives SplitText mask animation.
+REQUIRED FOR: Each project section.
+
+SELECTOR: .indicator-dot
+USAGE: Project indicator dot (right gutter). One per project section, sticky on active project.
+REQUIRED FOR: Desktop dot nav only.
+
+# BACKGROUND CANVAS ELEMENTS
+SELECTOR: .brandon-main-background
+USAGE: Main haze p5.js background. Inserted/pinned under sections 1–8. Only one should exist at any time.
+REQUIRED FOR: All pre-about sections.
+
+SELECTOR: .brandon-main-background2
+USAGE: Alternate (light) haze p5.js background for project pages if used.
+REQUIRED FOR: Optional, light/white project pages.
+
+SELECTOR: .brandon-load-wave
+USAGE: Load wave p5.js background for initial hero reveal. Only present in hero section.
+REQUIRED FOR: Section 1 only.
+
+# DOT NAVIGATION
+SELECTOR: .brandon-dot-nav
+USAGE: Container for vertical project nav dots (desktop only). Injected by JS.
+REQUIRED FOR: Dot navigation.
+
+SELECTOR: .brandon-dot
+USAGE: Individual nav dot button, one per project. Sticky on active section, animates in/out with project section.
+REQUIRED FOR: Project navigation (desktop).
+
+# SHARED ANIMATION/UTILITY CLASSES
+SELECTOR: .is-visible
+USAGE: Animated elements (lines, dots, etc.)—class added when element is visible/in.
+REQUIRED FOR: General GSAP animation state.
+
+SELECTOR: .is-hidden
+USAGE: Animated elements—class added when element is out/hidden.
+REQUIRED FOR: General GSAP animation state.
+
+SELECTOR: .pressed
+USAGE: Temporary state for button/logo click/tap/press animation.
+REQUIRED FOR: Button/CTA/UI triggers.
+
+# SPLITTEXT LINES (DYNAMIC, JS-GENERATED)
+SELECTOR: .split-line
+USAGE: Applied to each line of SplitText-processed text (e.g., hero title, select projects, project titles).
+REQUIRED FOR: Line-by-line GSAP animation. Not to be manually added; JS only.
+
+********AI 1
+
+- Selector/Class Name: .brandon-section1-pin
+- File Location(s): brandon-custom-scripts.js (initializeSection1PinReveal)
+- Explicit purpose: Wrapper <smp-section> for Section 1; used by ScrollTrigger to pin the entire hero section.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-section1-copy
+- File Location(s): brandon-custom-scripts.js (initializeSection1PinReveal)
+- Explicit purpose: Container <smp-column> for the intro text; target for reveal-in and reveal-out tweens.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .split-line
+- File Location(s): brandon-custom-scripts.js (animateHeroTitle & initializeSection1PinReveal)
+- Explicit purpose: Applied (via GSAP SplitText) to each line of hero and intro copy for staggered animation.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-section2-pin
+- File Location(s): brandon-custom-scripts.js (initializeSection1PinReveal)
+- Explicit purpose: Wrapper for Section 2; trigger point for animating out Section 1 copy at “top 25%” viewport.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .pressed
+- File Location(s): brandon-custom-scripts.js (initializeButtonHandlers)
+- Explicit purpose: Added/removed on mousedown/keydown to animate button “press” effect.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-animated-button-reveal
+- File Location(s): brandon-custom-scripts.js (initializeButtonHandlers, initializeSmoothScrollHandlers)
+- Explicit purpose: CTA buttons with animated underline/background, also smooth-scroll triggers.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-logo-reveal-link
+- File Location(s): brandon-custom-scripts.js (initializeButtonHandlers, initializeSmoothScrollHandlers)
+- Explicit purpose: Header logo link that animates on hover/press and performs smooth scroll on click.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: #brandonDotsGridMenu
+- File Location(s): brandon-custom-scripts.js (initializeDotsGridMenu)
+- Explicit purpose: ID on the 9-dot menu trigger; used to open/close the dot grid animation.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-dot
+- File Location(s): brandon-custom-scripts.js (initializeDotsGridMenu, createDotNav)
+- Explicit purpose: Individual dot elements in both grid-menu animation and dot-nav desktop indicator.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-main-background
+- File Location(s): brandon-custom-scripts.js (injectBackgroundContainers → createHazeBackgroundSketch)
+- Explicit purpose: Container for the dark haze p5.js canvas background in each section.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .brandon-load-wave
+- File Location(s): brandon-custom-scripts.js (injectBackgroundContainers → createLoadWaveSketch)
+- Explicit purpose: Container for the expanding “load wave” p5.js canvas on the hero section.
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .is-visible
+- File Location(s): brandon-custom-scripts.js (initializeSection1PinReveal, animateHeroTitle)
+- Explicit purpose: State class added when text lines have animated in (used for styling or conditional logic).
+- Known conflicts reviewed? [Yes]
+
+- Selector/Class Name: .is-hidden
+- File Location(s): brandon-custom-scripts.js (initializeSection1PinReveal, animateHeroTitle)
+- Explicit purpose: State class added when text lines have animated out (used for styling or conditional logic).
+- Known conflicts reviewed? [Yes]
+
+[Prompt for Brandon: "Add new selectors/classes and describe usage/known conflicts here whenever you introduce a new animation target or container."]

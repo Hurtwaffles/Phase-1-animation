@@ -1,0 +1,13 @@
+
+AI/LLM CHANGELOG:
+
+Explicitly log every code alteration:
+
+- Date: ____________________
+- File(s) Changed: ____________________
+- Reason for Change: ____________________
+- Exact Changes Made: ____________________
+- Observed Result: ____________________
+- Confirm no regressions (Yes/No): ______
+
+Update this Changelog immediately after each code change.

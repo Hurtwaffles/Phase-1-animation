@@ -1,0 +1,13 @@
+
+AI/LLM ANIMATION WORKFLOW:
+
+1. Animation description or CodePen demo link: [Prompt: "Please provide explicit animation details or a link to the demo:"]
+2. Exact page, section, or class for implementation: [Prompt: "Specify exact target locations/classes/pages for this animation:"]
+3. AJAX/SPA compatibility verified? [Yes/No]: ______
+4. Known issues reviewed? [Yes/No]: ______
+
+If issues occur, follow these debugging steps explicitly:
+- GSAP/p5.js correctly loaded?
+- Confirm element selectors exactly match HTML structure.
+- Check Known Issues document explicitly for conflicts.
+- Provide screenshots and console logs if unclear.

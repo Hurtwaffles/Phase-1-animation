@@ -1,0 +1,11 @@
+
+AI/LLM SUPPORT REQUEST TEMPLATE:
+
+- Date of Request: ____________________
+- Page/Section Affected: ____________________
+- Issue/Task Explicit Description: ____________________
+- Steps Taken Already: ____________________
+- Screenshots/Logs included? [Yes/No]: ______
+- Clarification needed from Brandon explicitly stated here: ____________________
+
+[Prompt for Brandon: "Clearly state additional context or confirmation you require from me for support requests."]
