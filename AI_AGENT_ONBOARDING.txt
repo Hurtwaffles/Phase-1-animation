@@ -2,7 +2,7 @@ AI/LLM ONBOARDING GUIDE:
 
 - Confirm you've reviewed the README.md before proceeding
 - AI/LLM Prompt: "Please summarize the primary goal of this project in one sentence to confirm your understanding."
-  Response: ____________________
+  Response: I'm building a design portfolio website to wow future employers, with low traffic and high polish
 - Clearly state any clarifying questions you have: [AI/LLM Prompt: "Please clarify the following points for onboarding:"] 
 - Ensure you understand Brandon's coding limitations. 
 If unclear, ask explicitly: [AI/LLM Prompt: "Could you confirm your exact experience level with HTML/CSS and JS?"]
