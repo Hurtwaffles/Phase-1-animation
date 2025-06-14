@@ -1,0 +1,66 @@
+{
+    "page_header": {
+        "name": "Page Header",
+        "count": 3
+    },
+    "fullscreen": {
+        "name": "Fullscreen",
+        "count": 3
+    },
+    "fullwidth": {
+        "name": "Fullwidth",
+        "count": 3
+    },
+    "columns": {
+        "name": "Columns",
+        "count": 4
+    },
+    "text_layout": {
+        "name": "Text Layout",
+        "count": 5
+    },
+    "profile": {
+        "name": "Profile",
+        "count": 4
+    },
+    "team": {
+        "name": "Team",
+        "count": 3
+    },
+    "fifty_fifty": {
+        "name": "Fifty Fifty",
+        "count": 3
+    },
+    "image_grids": {
+        "name": "Image Grids",
+        "count": 5
+    },
+    "image_with_caption": {
+        "name": "Image With Caption",
+        "count": 4
+    },
+    "fluid_grids": {
+        "name": "Fluid Grids",
+        "count": 5
+    },
+    "editorial": {
+        "name": "Editorial",
+        "count": 2
+    },
+    "overlap": {
+        "name": "Overlap",
+        "count": 3
+    },
+    "quote": {
+        "name": "Quote",
+        "count": 3
+    },
+    "lists": {
+        "name": "Lists",
+        "count": 2
+    },
+    "footer": {
+        "name": "Footer",
+        "count": 3
+    }
+}

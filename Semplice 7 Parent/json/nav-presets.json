@@ -1,0 +1,13 @@
+{
+	"scratch": 0,
+	"logo_left_menu_right": 1,
+	"logo_left_menu_left": 2,
+	"logo_right_menu_left": 3,
+	"logo_right_menu_right": 4,
+	"logo_middle_menu_sides": 5,
+	"logo_middle_menu_stacked": 6,
+	"logo_middle_menu_corners": 7,
+	"no_logo_menu_distributed": 8,
+	"container_floating": 9,
+	"container_expanded": 10
+}
