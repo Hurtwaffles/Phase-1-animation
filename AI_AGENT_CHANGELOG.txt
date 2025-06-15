@@ -34,4 +34,12 @@ Explicitly log every code alteration:
 +- Observed Result: Confirmed patch retained across branch recreation
 +- Confirm no regressions (Yes/No): Yes
 +
+
+- Date: 2025-06-15
+- File(s) Changed: style.css, functions.php, brandon-custom-scripts.js
+- Reason for Change: Reverted to "last fully working" child theme files (JS v2.5) to restore P5.js animations and establish a stable baseline.
+- Exact Changes Made: Replaced content of the three child theme files with their versions from "LAST FULLY WORKING CHILD THEME" directory.
+- Observed Result: reverted back to last working files, succsessful
+- Confirm no regressions (Yes/No): yes - all working as per last confirmed stable files
+
  Update this Changelog immediately after each code change.
