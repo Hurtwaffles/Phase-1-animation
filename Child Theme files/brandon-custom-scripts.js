@@ -1,8 +1,12 @@
-// ==== BRANDON: GLOBAL SPA JS (Fully Optimized & Documented) ====
-// Version: 2.5
-// Date: 2025-06-12
-// Author: Brandon Leach
-// Description: Optimized custom animations and interactions for Semplice WordPress theme
+// ==== BRANDON: GLOBAL SPA JS (Dot Grid X Animation Refined) ====
+// Version: 2.7 (Dot Grid "X" Animation, codepen-matched)
+// Date: 2025-06-15
+
+
+// ========== DEBUG LOGGING ==========
+function brandonLog(...args) {
+  if (window && window.console) console.log('[BRANDON DOT GRID]', ...args);
+}
 
 (function() {
   'use strict';
@@ -10,59 +14,21 @@
   // ========== GSAP & CUSTOM EASE INITIALIZATION ==========
   function initializeGSAP() {
     if (window.gsap && window.CustomEase) {
-      // Register custom ease if it doesn't exist
-      if (!CustomEase.get("circleEase")) {
-        CustomEase.create("circleEase", "0.68, -0.55, 0.265, 1.55");
+      if (!CustomEase.get("rebrandEase")) {
+        CustomEase.create("rebrandEase", "M0,0 C0.266,0.112 0.24,1.422 0.496,1.52 0.752,1.618 0.734,0.002 1,0");
       }
+      brandonLog("GSAP and CustomEase loaded.");
       return true;
     }
+    brandonLog("GSAP or CustomEase missing!");
     return false;
   }
 
-  // ========== CONFIGURATION OBJECTS ==========
-  const BRANDON_CONFIG = {
-    // Grid and wave animation settings
-    grid: {
-      subdivisions: 12,
-      gapFactor: 8,
-      baseDotSize: 1.5
-    },
-    wave: {
-      dotColor: [42, 42, 46], // This is #2A2A2E
-      alphaReveal: 77,
-      thickness: 145,
-      speed: 247,
-      frontRatio: 0.44,
-      backRatio: 2.6
-    },
-    // Animation timing
-    timing: {
-      buttonPress: 180,
-      dotAnimation: 500,
-      waveExpansion: 247
-    }
-  };
-  
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ========== UTILITY FUNCTIONS ==========
+  // ========== BUTTON HANDLER ==========
   function isElement(el) {  
     return el && el.closest && typeof el.closest === 'function';  
   }
 
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-
-  // ========== BUTTON & LOGO ANIMATION HANDLERS ==========
   function initializeButtonHandlers() {
     if (window._brandonNavBtnHandlers) return;
     window._brandonNavBtnHandlers = true;
@@ -79,7 +45,7 @@
         if (btn) {
           if (evt === 'keydown' && !['Enter', ' '].includes(e.key)) return;
           btn.classList.add('pressed');
-          setTimeout(() => btn.classList.remove('pressed'), BRANDON_CONFIG.timing.buttonPress);
+          setTimeout(() => btn.classList.remove('pressed'), 180);
         }
       }, { passive: true, capture: true });
     });
@@ -95,131 +61,164 @@
       const workMenuTrigger = isElement(e.target) ? e.target.closest(workMenuSelector) : null;
       if (workMenuTrigger) {
         e.preventDefault();
+        brandonLog('WORK menu/dot grid trigger clicked');
         const menuTrigger = 
           document.querySelector('.open-menu.menu-icon') ||
           document.querySelector('.hamburger') ||
           document.querySelector('[data-module="menu"] .hamburger, [data-menu-type="hamburger"] .hamburger');
-        
         if (menuTrigger) {
+          brandonLog('Triggering native Semplice overlay menu');
           menuTrigger.click();
         }
       }
     }, { capture: true });
   }
 
-function initializeDotsGridMenu() {
-  if (prefersReducedMotion) return;
+  // ========== DOTS GRID MENU ICON (Grid <-> X, Synchronized with Overlay, Debug Logging) ==========
+  function initializeDotsGridMenu() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      brandonLog('Reduced motion: grid dot animation disabled');
+      return;
+    }
+    if (!initializeGSAP()) return;
 
-  // 1. GSAP AND ELEMENT SETUP
-  if (!initializeGSAP()) return;
-  const menuBtn = document.getElementById('brandonDotsGridMenu');
-  if (!menuBtn || menuBtn.dataset.brandonInitialized === 'true') {
-    return;
-  }
-  menuBtn.dataset.brandonInitialized = 'true';
+    const menuBtn = document.getElementById('brandonDotsGridMenu');
+    if (!menuBtn || menuBtn.dataset.brandonInitialized === 'true') {
+      brandonLog('No menuBtn or already initialized');
+      return;
+    }
+    menuBtn.dataset.brandonInitialized = 'true';
 
-  const dots = menuBtn.querySelectorAll('.brandon-dot');
-  if (dots.length !== 9) return;
+    const dots = Array.from(menuBtn.querySelectorAll('.brandon-dot'));
+    if (dots.length !== 9) {
+      brandonLog('Dot grid: incorrect dot count', dots.length);
+      return;
+    }
 
-  // 2. REGISTER THE CUSTOM EASE
-  if (!CustomEase.get("rebrandEase")) {
-    CustomEase.create("rebrandEase", "M0,0 C0.266,0.112 0.24,1.422 0.496,1.52 0.752,1.618 0.734,0.002 1,0");
-  }
+    // Spacing matches your previous (8px)
+    const SPACING = 8;
+    const DURATION = 0.5;
+    let isOpen = false; // local fallback state
 
-  // 3. ANIMATION CONSTANTS & STATE
-  const DURATION = 0.5;
-  const SPACING = 8;
-  let isOpen = false;
-  let menuTimeline = gsap.timeline({
-    paused: true,
-    onComplete: () => isOpen = true,
-    onReverseComplete: () => isOpen = false,
-  });
-
-  // 4. DEFINE THE ANIMATION TIMELINE
-  gsap.set(dots, {
-    transformOrigin: 'center center'
-  });
-
-  menuTimeline
-    .set(dots, {
+    // Set initial grid state (all dots in a 3x3 grid)
+    gsap.set(dots, {
       x: (i) => (i % 3) * SPACING - SPACING,
       y: (i) => Math.floor(i / 3) * SPACING - SPACING,
       scale: 1,
       opacity: 1,
-    })
-    .to(dots, {
+      transformOrigin: 'center center'
+    });
+
+    // X state positions
+    const xState = [
+      -SPACING,  // 0 (dot #1): top-left
+      0,         // 1 (dot #2): center
+      SPACING,   // 2 (dot #3): top-right
+      0,         // 3 (dot #4): center
+      0,         // 4 (dot #5): center
+      0,         // 5 (dot #6): center
+      -SPACING,  // 6 (dot #7): bot-left
+      0,         // 7 (dot #8): center
+      SPACING    // 8 (dot #9): bot-right
+    ];
+    const yState = [
+      -SPACING,  // 0 (dot #1): top-left
+      0,         // 1 (dot #2): center
+      -SPACING,  // 2 (dot #3): top-right
+      0,         // 3 (dot #4): center
+      0,         // 4 (dot #5): center
+      0,         // 5 (dot #6): center
+      SPACING,   // 6 (dot #7): bot-left
+      0,         // 7 (dot #8): center
+      SPACING    // 8 (dot #9): bot-right
+    ];
+
+    // Timeline: grid -> X (forward), X -> grid (reverse)
+    const menuTimeline = gsap.timeline({
+      paused: true,
+      onStart: () => brandonLog('Timeline started', { isOpen }),
+      onComplete: () => { isOpen = true; brandonLog('Timeline complete/open', { isOpen }); },
+      onReverseComplete: () => { isOpen = false; brandonLog('Timeline reversed/grid', { isOpen }); }
+    }).to(dots, {
       duration: DURATION,
       ease: "rebrandEase",
+      x: (i) => xState[i],
+      y: (i) => yState[i],
       stagger: {
         each: 0.04,
         from: "center",
         grid: [3, 3]
-      },
-      x: (i) => {
-        const col = i % 3;
-        if (col === 0) return SPACING;
-        if (col === 2) return -SPACING;
-        return 0;
-      },
-      y: (i) => {
-        const row = Math.floor(i / 3);
-        if (row === 0) return SPACING;
-        if (row === 2) return -SPACING;
-        return 0;
-      },
-      opacity: (i) => [1, 3, 5, 7].includes(i) ? 0 : 1,
-      scale: (i) => (i === 4) ? 1.3 : 1,
+      }
     });
-  
-  // 5. OVERLAY CLOSE HANDLER
-  // This remains important to reverse the animation when the overlay is closed
-  const observer = new MutationObserver((mutations, obs) => {
-    const overlayCloseBtn = document.querySelector('.close-overlay');
-    if (overlayCloseBtn && !overlayCloseBtn.dataset.brandonCloseListener) {
-        overlayCloseBtn.dataset.brandonCloseListener = 'true';
-        overlayCloseBtn.addEventListener('click', () => {
-            if (isOpen) {
-                menuTimeline.reverse();
-            }
-        });
+
+    // ===== Overlay State Synchronization =====
+    function isOverlayOpen() {
+      // 1. Body class
+      if (document.body.classList.contains('is-menu-open')) return true;
+      // 2. Common overlay menu class
+      const overlay = document.querySelector('.overlay-menu, .semplice-overlay, .semplice-menu-overlay, .menu-overlay, .menu__overlay, .overlay');
+      if (overlay && (overlay.classList.contains('active') || overlay.classList.contains('is-active') || overlay.classList.contains('menu-open'))) return true;
+      // 3. Fallback: check for visible hamburger close button
+      const closeBtn = document.querySelector('.close-overlay, .close-menu, .menu__close');
+      if (closeBtn && closeBtn.offsetParent !== null) return true;
+      return false;
     }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
 
+    // Watch for overlay state changes and sync the timeline
+    let lastOverlayOpen = isOverlayOpen();
 
-  // 6. MAIN CLICK HANDLER (UPDATED)
-  // The event listener now ONLY controls the animation timeline.
-  // The separate `initializeButtonHandlers` function handles the overlay trigger.
-  menuBtn.addEventListener('click', function(e) {
-    // Prevent the event from firing twice if it bubbles up
-    e.stopPropagation(); 
-    
-    if (!isOpen) {
-      menuTimeline.play();
-    } else {
-      // The native Semplice close button will reverse the animation via the listener above.
-      // This allows a user to click the icon again to close the menu.
-      menuTimeline.reverse();
+    function syncTimelineWithOverlay() {
+      const overlayOpen = isOverlayOpen();
+      brandonLog('Overlay state poll:', { overlayOpen, lastOverlayOpen });
+      if (overlayOpen && !lastOverlayOpen) {
+        // Overlay just opened: play to X
+        menuTimeline.play();
+      } else if (!overlayOpen && lastOverlayOpen) {
+        // Overlay just closed: reverse to grid
+        menuTimeline.reverse();
+      }
+      lastOverlayOpen = overlayOpen;
     }
-  });
-}
 
-  // ========== SMOOTH SCROLL HANDLERS (SPA-AWARE) ==========
+    // MutationObserver: watch for changes to body class or overlay menu
+    const observer = new MutationObserver(syncTimelineWithOverlay);
+
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'], subtree: false });
+    const overlays = document.querySelectorAll('.overlay-menu, .semplice-overlay, .semplice-menu-overlay, .menu-overlay, .menu__overlay, .overlay');
+    overlays.forEach(el => {
+      observer.observe(el, { attributes: true, attributeFilter: ['class'], subtree: false });
+    });
+
+    // SPA-safe: poll as backup in case overlay is toggled by JS without attribute mutation
+    setInterval(syncTimelineWithOverlay, 250);
+
+    // On page load, set correct icon state
+    setTimeout(syncTimelineWithOverlay, 100);
+
+    // === Fallback: Animate on dot grid click IF overlay state cannot be detected ===
+    menuBtn.addEventListener('click', function(e) {
+      brandonLog('Dot grid menuBtn clicked. Fallback local state isOpen:', isOpen);
+      if (!isOverlayOpen()) {
+        menuTimeline.play();
+        isOpen = true;
+      } else {
+        menuTimeline.reverse();
+        isOpen = false;
+      }
+    });
+  }
+
+  // ========== SMOOTH SCROLL HANDLERS (unchanged) ==========
   function initializeSmoothScrollHandlers() {
     const scrollLinks = document.querySelectorAll('.brandon-logo-reveal-link[href^="#"], .brandon-animated-button-reveal[href^="#"]');
-
     scrollLinks.forEach(link => {
       link.addEventListener('click', function(e) {
         const linkUrl = new URL(this.href);
         const currentUrl = new URL(window.location.href);
-
         if (linkUrl.pathname === currentUrl.pathname && linkUrl.search === currentUrl.search) {
           e.preventDefault();
           e.stopPropagation();
-
           const targetId = linkUrl.hash;
-
           try {
             if (targetId && targetId !== '#') {
               const targetElement = document.querySelector(targetId);
@@ -230,13 +229,13 @@ function initializeDotsGridMenu() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }
           } catch (error) {
-            console.error('Smooth scroll target not found or invalid selector:', targetId, error);
+            brandonLog('Smooth scroll target not found or invalid selector:', targetId, error);
           }
         }
       });
     });
   }
-
+  
   // ========== P5.JS CANVAS HELPERS (WITH INTERSECTION OBSERVER) ==========
   function createSafeP5Instance(factory, element, label) {
     if (prefersReducedMotion) return;
@@ -276,7 +275,6 @@ function initializeDotsGridMenu() {
   }
 
   // ========== RESPONSIVE DOT GRID BACKGROUNDS FOR SEMPLICE ==========
-  // Ensures all grid/dot backgrounds are consistent and responsive.
   function getResponsiveGridSettings(canvasWidth) {
     if (canvasWidth < 600) {
       return { DOT_GAP: 16, BASE_DOT_SIZE: 2 };
@@ -305,8 +303,8 @@ function initializeDotsGridMenu() {
    */
   function createHazeBackgroundSketch(containerElement) {
     return (p) => {
-      const DOT_COLOR = [42, 42, 46];      // #2A2A2E
-      const BG_COLOR = [14, 14, 16];       // #0E0E10
+      const DOT_COLOR = [42, 42, 46];
+      const BG_COLOR = [14, 14, 16];
       const BLOB_SCALE = 0.005, THRESHOLD = 0.64, FADE_RANGE = 0.17, ANIM_SPEED = 0.0002;
       let DOT_GAP, BASE_DOT_SIZE;
       function alphaRamp(x) { let t = Math.max(0, Math.min(1, x)); return t * t * (3 - 2 * t); }
@@ -345,12 +343,11 @@ function initializeDotsGridMenu() {
 
   /**
    * WHITE HAZE / LIQUID HALFTONE BACKGROUND (for project/light pages)
-   * - BG: #F2F2F3 (light gray), DOTS: #9E9EA7 (muted lavender)
    */
   function createWhiteHazeBackgroundSketch(containerElement) {
     return (p) => {
-      const DOT_COLOR = [158, 158, 167];   // #9E9EA7
-      const BG_COLOR = [242, 242, 243];    // #F2F2F3
+      const DOT_COLOR = [158, 158, 167];
+      const BG_COLOR = [242, 242, 243];
       const BLOB_SCALE = 0.005, THRESHOLD = 0.64, FADE_RANGE = 0.17, ANIM_SPEED = 0.0002;
       let DOT_GAP, BASE_DOT_SIZE;
       function alphaRamp(x) { let t = Math.max(0, Math.min(1, x)); return t * t * (3 - 2 * t); }
