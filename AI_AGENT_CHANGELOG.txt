@@ -40,6 +40,22 @@ Explicitly log every code alteration:
 - Reason for Change: Reverted to "last fully working" child theme files (JS v2.5) to restore P5.js animations and establish a stable baseline.
 - Exact Changes Made: Replaced content of the three child theme files with their versions from "LAST FULLY WORKING CHILD THEME" directory.
 - Observed Result: reverted back to last working files, succsessful
-- Confirm no regressions (Yes/No): yes - all working as per last confirmed stable files
+- Confirm no regressions (Yes/No): yes - all working as per last confirmed stable files9
+
++---
++- Date: 2025-06-15
++- File(s) Changed: Child Theme files/brandon-custom-scripts.js (v2.6.7.6 through v2.6.7.8).
++- Reason for Change: Resolve P5.js background initialization failure ("Max wait time reached") and a regression where the "WORK" button overlay trigger broke. This occurred after successfully implementing the dot grid animation.
++- Exact Changes Made:
++  - v2.6.7.6: Attempted to fix P5 by explicitly styling the injected background div (position:absolute, width/height:100%) and ensuring its parent section was position:relative. This version inadvertently broke the "WORK" button overlay and did not fix P5.
++  - v2.6.7.7: Isolated P5 initialization in a try...catch block to prevent it from halting other script functions. Added more detailed P5 dimension logging. This version still had issues due to a syntax error.
++  - v2.6.7.8: Corrected a critical syntax error (missing curly brace in a catch block within `createSafeP5Instance`) from v2.6.7.7. This restored all script functionality, including console logging. The P5.js background container styling and dimension logging from v2.6.7.7 were retained.
++- Observed Result: With v2.6.7.8, all functionalities are restored and working correctly:
++  - P5.js backgrounds (e.g., .brandon-main-background) are visible and animating.
++  - The dot grid icon (#brandonDotsGridMenu) animates perfectly (initial 3x3 grid, corners move slightly out, side-middles and center dot converge at the center, reverses correctly). CSS 'transition' property remains removed from .brandon-dots-grid .brandon-dot.
++  - Both the "WORK" button and the dot grid icon reliably trigger the Semplice overlay menu.
++  - Console logs are fully operational.
++- Confirm no regressions (Yes/No): Yes
++---
 
  Update this Changelog immediately after each code change.
