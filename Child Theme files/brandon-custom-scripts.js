@@ -158,6 +158,12 @@ function brandonLog(...args) {
       // 2. Common overlay menu class
       const overlay = document.querySelector('.overlay-menu, .semplice-overlay, .semplice-menu-overlay, .menu-overlay, .menu__overlay, .overlay');
       if (overlay && (overlay.classList.contains('active') || overlay.classList.contains('is-active') || overlay.classList.contains('menu-open'))) return true;
+      // 2b. Semplice overlay element with inline height (open state)
+      const smpOverlay = document.querySelector('.smp-overlay');
+      if (smpOverlay) {
+        const height = parseFloat(smpOverlay.style.height || '0');
+        if (height > 0) return true;
+      }
       // 3. Fallback: check for visible hamburger close button
       const closeBtn = document.querySelector('.close-overlay, .close-menu, .menu__close');
       if (closeBtn && closeBtn.offsetParent !== null) return true;
