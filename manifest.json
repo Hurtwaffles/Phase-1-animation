@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "commit": "8434afcff705fd991555f49b548db243cf7f5af9",
+  "files": [
+    {
+      "path": "README.md",
+      "role": "root-doc",
+      "description": "High-level project overview and setup instructions"
+    },
+    {
+      "path": "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/README.md",
+      "role": "core-doc",
+      "description": "Semplice7 parent theme structure and conventions"
+    },
+    {
+      "path": "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/functions.php",
+      "role": "core-script",
+      "description": "Enqueues parent theme JS/CSS"
+    },
+    {
+      "path": "Child Theme files/style.css",
+      "role": "child-style",
+      "description": "Child theme declarations and enqueue hooks",
+      "depends_on": [
+        "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/functions.php"
+      ]
+    },
+    {
+      "path": "Child Theme files/custom-js.js",
+      "role": "child-script",
+      "description": "Custom GSAP/P5.js animation initialization"
+    }
+  ]
+}
