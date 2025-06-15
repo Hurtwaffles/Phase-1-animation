@@ -1,6 +1,6 @@
 // ==== BRANDON: GLOBAL SPA JS (Dot Grid X Animation Refined) ====
-// Version: 2.7 (Dot Grid "X" Animation, codepen-matched)
-// Date: 2025-06-15
+// Version: 2.8 (Dot Grid "X" Animation patch)
+// Date: 2025-06-16
 
 
 // ========== DEBUG LOGGING ==========
@@ -10,6 +10,12 @@ function brandonLog(...args) {
 
 (function() {
   'use strict';
+
+  // ===== Global settings & helpers =====
+  const BRANDON_CONFIG = {
+    timing: { buttonPress: 180 }
+  };
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ========== GSAP & CUSTOM EASE INITIALIZATION ==========
   function initializeGSAP() {
@@ -25,8 +31,20 @@ function brandonLog(...args) {
   }
 
   // ========== BUTTON HANDLER ==========
-  function isElement(el) {  
-    return el && el.closest && typeof el.closest === 'function';  
+  function isElement(el) {
+    return el && el.closest && typeof el.closest === 'function';
+  }
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
   function initializeButtonHandlers() {
@@ -62,7 +80,7 @@ function brandonLog(...args) {
       if (workMenuTrigger) {
         e.preventDefault();
         brandonLog('WORK menu/dot grid trigger clicked');
-        const menuTrigger = 
+        const menuTrigger =
           document.querySelector('.open-menu.menu-icon') ||
           document.querySelector('.hamburger') ||
           document.querySelector('[data-module="menu"] .hamburger, [data-menu-type="hamburger"] .hamburger');
@@ -241,7 +259,7 @@ function brandonLog(...args) {
       });
     });
   }
-  
+
   // ========== P5.JS CANVAS HELPERS (WITH INTERSECTION OBSERVER) ==========
   function createSafeP5Instance(factory, element, label) {
     if (prefersReducedMotion) return;
@@ -410,16 +428,17 @@ function brandonLog(...args) {
         centerX = p.width / 2;
         centerY = p.height / 2;
         maxDist = Math.sqrt(centerX * centerX + centerY * centerY) + WAVE_THICKNESS;
-        startTime = p.millis();
+        startTime = 0;
         p.loop();
       };
 
       p.draw = function() {
-        p.background(...BG_COLOR);
-        const elapsedSec = (p.millis() - startTime) * 0.001;
-        const fullDist = elapsedSec * BREATH_SPEED;
-        const revealDist = Math.min(fullDist, maxDist);
-        const cycleLen = maxDist + WAVE_THICKNESS;
+        if (startTime === 0) startTime = p.millis();
+        const fullDist = p.dist(0, 0, centerX, centerY);
+        const t = (p.millis() - startTime) / 1000;
+        const revealDuration = 2.6;
+        const revealDist = Math.min(t / revealDuration, 1) * fullDist;
+        const cycleLen = BREATH_SPEED;
         const pulseDist = (fullDist % cycleLen);
 
         dots.forEach(dot => {
@@ -496,7 +515,7 @@ function brandonLog(...args) {
       });
     });
   }
-  
+
   // ========== MAIN INITIALIZATION FUNCTION ==========
   function initializeBrandonComponents() {
     initializeButtonHandlers();
