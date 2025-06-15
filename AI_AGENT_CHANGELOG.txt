@@ -10,4 +10,28 @@ Explicitly log every code alteration:
 - Observed Result: ____________________
 - Confirm no regressions (Yes/No): ______
 
-Update this Changelog immediately after each code change.
++---
++- Date: 2025-06-15
++- File(s) Changed: Child Theme files/brandon-custom-scripts.js
++- Reason for Change: Dot grid menu icon was stuck in grid layout because overlay open state was not detected
++- Exact Changes Made: Added smp-overlay height check in isOverlayOpen() to return true when inline height indicates open menu
++- Observed Result: Icon now switches between grid and X when overlay menu opens/closes in snapshots
++- Confirm no regressions (Yes/No): Yes
++
++---
++- Date: 2025-06-15
++- File(s) Changed: Child Theme files/brandon-custom-scripts.js
++- Reason for Change: JS runtime errors stopped p5 background animations (missing debounce function and reduced-motion variable)
++- Exact Changes Made: Restored BRANDON_CONFIG and prefersReducedMotion constants; reintroduced debounce() helper
++- Observed Result: Background animations initialize correctly again
++- Confirm no regressions (Yes/No): Yes
++
++---
++- Date: 2025-06-16
++- File(s) Changed: Child Theme files/brandon-custom-scripts.js, AI_AGENT_CHANGELOG.txt
++- Reason for Change: Recreated work branch patch to ensure dot grid menu logic and helpers present
++- Exact Changes Made: Bumped script header version to 2.8 and logged reapply action
++- Observed Result: Confirmed patch retained across branch recreation
++- Confirm no regressions (Yes/No): Yes
++
+ Update this Changelog immediately after each code change.
