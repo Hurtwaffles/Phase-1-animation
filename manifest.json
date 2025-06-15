@@ -5,30 +5,35 @@
     {
       "path": "README.md",
       "role": "root-doc",
-      "description": "High-level project overview and setup instructions"
+      "description": "Project overview and setup"
     },
     {
       "path": "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/README.md",
       "role": "core-doc",
-      "description": "Semplice7 parent theme structure and conventions"
+      "description": "Parent-theme structure & conventions"
     },
     {
       "path": "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/functions.php",
       "role": "core-script",
-      "description": "Enqueues parent theme JS/CSS"
+      "description": "Parent enqueue logic for JS/CSS"
     },
     {
       "path": "Child Theme files/style.css",
       "role": "child-style",
-      "description": "Child theme declarations and enqueue hooks",
+      "description": "Child theme CSS & enqueue declarations",
       "depends_on": [
         "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/functions.php"
       ]
     },
     {
+      "path": "Child Theme files/functions.php",
+      "role": "child-setup",
+      "description": "Registers child hooks and assets"
+    },
+    {
       "path": "Child Theme files/custom-js.js",
       "role": "child-script",
-      "description": "Custom GSAP/P5.js animation initialization"
+      "description": "Custom animation initializers (GSAP, P5.js, ScrollTrigger)"
     }
   ]
 }
