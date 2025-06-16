@@ -239,46 +239,32 @@
 	/* transition: transform 0.3s var(--brandon-transition-ease), opacity 0.3s var(--brandon-transition-ease);
 }
 
-.brandon-dots-grid .brandon-dot:nth-child(1) {  
-	top: 0;  
-	left: 0;  
+/*
+  * BRANDON: Custom Nav Alignment Fix
+  * This rule forces the Semplice navbar row to vertically center all columns.
+  * This ensures the logo and the mobile dot-grid menu icon are vertically aligned.
+*/
+#row-navbar-top {
+    align-items: center !important;
 }
-.brandon-dots-grid .brandon-dot:nth-child(2) {  
-	top: 0;  
-	left: 50%;  
-	transform: translateX(-50%);  
+
+/* BRANDON: Fine-tune vertical alignment of dot grid menu in navbar */
+#brandonDotsGridMenu {
+  position: relative;
+  top: -5px; /* This was the value that worked for you */
 }
-.brandon-dots-grid .brandon-dot:nth-child(3) {  
-	top: 0;  
-	right: 0;  
-}
-.brandon-dots-grid .brandon-dot:nth-child(4) {  
-	top: 50%;  
-	left: 0;  
-	transform: translateY(-50%);  
-}
-.brandon-dots-grid .brandon-dot:nth-child(5) {  
-	top: 50%;  
-	left: 50%;  
-	transform: translate(-50%, -50%);  
-}
-.brandon-dots-grid .brandon-dot:nth-child(6) {  
-	top: 50%;  
-	right: 0;  
-	transform: translateY(-50%);  
-}
-.brandon-dots-grid .brandon-dot:nth-child(7) {  
-	bottom: 0;  
-	left: 0;  
-}
-.brandon-dots-grid .brandon-dot:nth-child(8) {  
-	bottom: 0;  
-	left: 50%;  
-	transform: translateX(-50%);  
-}
-.brandon-dots-grid .brandon-dot:nth-child(9) {  
-	bottom: 0;  
-	right: 0;  
+
+/*
+ * BRANDON: Custom Nav Alignment Fix - REFINEMENT
+ * This rule targets the right-hand column in the nav and makes it
+ * a flex container. It vertically centers the items within it
+ * (like the dot grid) and keeps them pushed to the right.
+*/
+/* Vertically centers dot grid (and other items) within its column */
+#column_34u9ici5p { /* Make sure this is your dot grid's column ID */
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
 }
 
 /* ========== BRANDON NAMESPACE: CANVAS BACKGROUND LAYERS ========== */
@@ -390,69 +376,4 @@ smp-section.brandon-bg-main-bg2 .smp-content-wrapper {
 	backface-visibility: hidden;
 }
 
-/* ========== BRANDON NAMESPACE: CUSTOM CURSOR ========== */
-.brandon-custom-cursor {
-	position: fixed;
-	width: 40px;
-	height: 40px;
-	pointer-events: none;
-	z-index: 9999;
-	mix-blend-mode: difference;
-	transition: transform 0.1s ease;
-}
-
-.brandon-cursor-dot {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 8px;
-	height: 8px;
-	background: var(--brandon-text-color);
-	border-radius: 50%;
-	transform: translate(-50%, -50%);
-	transition: width 0.3s var(--brandon-transition-ease),
-				height 0.3s var(--brandon-transition-ease),
-				background 0.3s var(--brandon-transition-ease);
-}
-
-.brandon-cursor-hover .brandon-cursor-dot {
-	width: 40px;
-	height: 40px;
-	background: var(--brandon-accent-color);
-	opacity: 0.5;
-}
-
-/* Hide default cursor when custom cursor is active */
-body {
-	cursor: none;
-}
-
-/* Show default cursor on touch devices */
-@media (hover: none) {
-	.brandon-custom-cursor {
-		display: none;
-	}
-	body {
-		cursor: auto;
-	}
-}
-
-/* ========== BRANDON NAMESPACE: PARALLAX CONTAINER ========== */
-.brandon-parallax {
-	overflow: hidden;
-	will-change: transform;
-}
-
-/* ========== BRANDON NAMESPACE: SCROLL REVEAL ========== */
-.brandon-reveal {
-	opacity: 0;
-	transform: translateY(20px);
-	transition: opacity 0.6s var(--brandon-transition-ease),
-				transform 0.6s var(--brandon-transition-ease);
-}
-
-.brandon-reveal.visible {
-	opacity: 1;
-	transform: translateY(0);
-}
 /* Custom CSS End */
