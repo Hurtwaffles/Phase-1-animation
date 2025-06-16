@@ -1,0 +1,9 @@
+{
+  "type": "template",
+  "fields": [
+    "summary",
+    "url",
+    "expected",
+    "actual"
+  ]
+}

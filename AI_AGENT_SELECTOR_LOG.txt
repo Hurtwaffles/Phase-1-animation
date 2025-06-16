@@ -213,4 +213,57 @@ REQUIRED FOR: Line-by-line GSAP animation. Not to be manually added; JS only.
 - Explicit purpose: State class added when text lines have animated out (used for styling or conditional logic).
 - Known conflicts reviewed? [Yes]
 
+## Selector & DOM Element Log - Semplice Child Theme
+
+**Last Updated:** 2025-06-15 23:55:56 UTC
+**Purpose:** Log key CSS selectors and JavaScript element IDs/classes used for targeting and manipulation.
+
+---
+
+### Dot Grid Menu Animation:
+
+*   **Container ID (JS):** `brandonDotsGridMenu`
+    *   Purpose: Main `div` element containing the 9 dots for the animated menu icon. Targeted by `document.getElementById()`.
+*   **Individual Dot Class (JS & CSS):** `.brandon-dot`
+    *   Purpose: Class applied to each of the 9 `div` elements within `#brandonDotsGridMenu`. Used by `querySelectorAll()` in JS and for base styling in CSS.
+    *   CSS Styling Context: Requires `position: absolute;` within `#brandonDotsGridMenu` (which should be `position: relative;`). `transform-origin: center center;`. GSAP controls `transform (x, y, scale)` and `opacity`. **CSS `transition` property on this class MUST be removed/commented out to prevent conflicts with GSAP.**
+
+---
+
+### Overlay Menu Triggers:
+
+*   **Custom Trigger Class (JS):** `.brandon-work-menu-trigger`
+    *   Purpose: Applied to any custom element (e.g., `#brandonDotsGridMenu`, "WORK" text button/link) that should trigger the Semplice overlay menu. Used in `document.addEventListener('click', ...)` to identify relevant clicks.
+*   **Semplice Native Menu Trigger Selectors (JS - for programmatic click):**
+    *   `'.open-menu.menu-icon'`
+    *   `'.hamburger'`
+    *   `'[data-module="menu"] .hamburger'`
+    *   `'[data-menu-type="hamburger"] .hamburger'`
+    *   Purpose: Used in sequence by `document.querySelector()` to find the Semplice theme's actual hamburger icon to be clicked programmatically.
+
+---
+
+### P5.js Backgrounds:
+
+*   **Target Semplice Section Class (JS & CSS):** `smp-section.brandon-bg-main-bg` (example for main background)
+    *   Variants: `smp-section.brandon-bg-load-wave`, `smp-section.brandon-bg-main-bg2`
+    *   Purpose: Identifies the Semplice `<smp-section>` element that should host a P5.js background.
+    *   CSS Styling Context: Requires `position: relative;` (can be set by JS if static). Must have a defined `height` or `min-height` (e.g., `100vh`) for the P5 canvas to fill.
+*   **Dynamically Created P5 Container Div Class (JS & CSS):** `div.brandon-main-background` (example)
+    *   Variants: `div.brandon-load-wave`, `div.brandon-main-background2`
+    *   Purpose: `div` element dynamically created by `injectBackgroundContainers()` inside the target `smp-section`. This `div` hosts the P5 canvas.
+    *   JS/CSS Styling Context: Styled by JS with `position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;`.
+*   **Semplice Content Wrapper (JS - for DOM insertion reference):** `.smp-content-wrapper`
+    *   Purpose: A common Semplice element within sections. Used to correctly layer the P5 background `div` behind actual page content.
+    *   JS/CSS Styling Context: If present, its `position` is set to `relative` and `z-index: 1` by JS to ensure it sits above the P5 background.
+
+---
+
+### General Animated Buttons & Links:
+
+*   **Button/Link Selector (JS):** `'.brandon-animated-button-reveal, .brandon-logo-reveal-link'`
+    *   Purpose: Used to attach press/release visual feedback animations and smooth scroll functionality.
+    *   CSS Styling Context: Relies on CSS variables for transitions and `:active` or a JS-added `.pressed` class.
+
+---
 [Prompt for Brandon: "Add new selectors/classes and describe usage/known conflicts here whenever you introduce a new animation target or container."]

@@ -1,39 +1,6 @@
 {
-  "version": "1.0",
-  "commit": "8434afcff705fd991555f49b548db243cf7f5af9",
-  "files": [
-    {
-      "path": "README.md",
-      "role": "root-doc",
-      "description": "Project overview and setup"
-    },
-    {
-      "path": "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/README.md",
-      "role": "core-doc",
-      "description": "Parent-theme structure & conventions"
-    },
-    {
-      "path": "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/functions.php",
-      "role": "core-script",
-      "description": "Parent enqueue logic for JS/CSS"
-    },
-    {
-      "path": "Child Theme files/style.css",
-      "role": "child-style",
-      "description": "Child theme CSS & enqueue declarations",
-      "depends_on": [
-        "CORE_SEMPLICE7_WITH_README/CORE SEMPLICE 7 THEME FILES/functions.php"
-      ]
-    },
-    {
-      "path": "Child Theme files/functions.php",
-      "role": "child-setup",
-      "description": "Registers child hooks and assets"
-    },
-    {
-      "path": "Child Theme files/custom-js.js",
-      "role": "child-script",
-      "description": "Custom animation initializers (GSAP, P5.js, ScrollTrigger)"
-    }
-  ]
+  "name": "Phase-1-animation",
+  "version": "1.0.0",
+  "description": "Portfolio front\u2011end assets",
+  "main": "index.js"
 }
