@@ -236,7 +236,7 @@
 	background-color: var(--brandon-dot-color);
 	border-radius: 50%;
 	transform-origin: center center;
-	/* transition: transform 0.3s var(--brandon-transition-ease), opacity 0.3s var(--brandon-transition-ease);
+	/* transition: transform 0.3s var(--brandon-transition-ease), opacity 0.3s var(--brandon-transition-ease); */
 }
 
 /*
@@ -251,7 +251,7 @@
 /* BRANDON: Fine-tune vertical alignment of dot grid menu in navbar */
 #brandonDotsGridMenu {
   position: relative;
-  top: -5px; /* This was the value that worked for you */
+  top: 5px; /* This was the value that worked for you */
 }
 
 /*
@@ -265,6 +265,7 @@
     display: flex !important;
     justify-content: flex-end !important;
     align-items: center !important;
+    padding-right: -32px;    /* keeps dot grid 16px from browser edge */
 }
 
 /* ========== BRANDON NAMESPACE: CANVAS BACKGROUND LAYERS ========== */
