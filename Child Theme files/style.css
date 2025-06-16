@@ -21,8 +21,27 @@
 	--brandon-transition-ease: cubic-bezier(.77,0,.18,1);
 	--brandon-dot-color: #F2F2F3;
 	--brandon-press-scale: 0.97;
+	--brandon-blur-amount: 8px;
+	--brandon-glass-bg: rgba(255, 255, 255, 0.1);
+	--brandon-glass-border: rgba(255, 255, 255, 0.2);
 	--brandon-hover-scale: 1.05;
-	/* --brandon-text-shadow removed */
+	--brandon-text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== BRANDON NAMESPACE: MODERN GLASS EFFECTS ========== */
+.brandon-glass-card {
+	background: var(--brandon-glass-bg);
+	backdrop-filter: blur(var(--brandon-blur-amount));
+	-webkit-backdrop-filter: blur(var(--brandon-blur-amount));
+	border: 1px solid var(--brandon-glass-border);
+	border-radius: 12px;
+	transition: transform 0.3s var(--brandon-transition-ease),
+				box-shadow 0.3s var(--brandon-transition-ease);
+}
+
+.brandon-glass-card:hover {
+	transform: translateY(-5px) scale(var(--brandon-hover-scale));
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* ========== BRANDON NAMESPACE: ENHANCED BUTTONS & LOGO ANIMATIONS ========== */
@@ -42,12 +61,14 @@
 	cursor: pointer;
 	letter-spacing: var(--brandon-letter-spacing);
 	transition: all 0.3s var(--brandon-transition-ease);
-	/* text-shadow removed */
+	text-shadow: var(--brandon-text-shadow);
 }
 
-/* Hover filter removed */
+.brandon-logo-reveal-link:hover,
+.brandon-animated-button-reveal:hover {
+	filter: brightness(1.2);
+}
 
-/* Keep press effect */
 .brandon-logo-reveal-link.pressed,
 .brandon-animated-button-reveal.pressed {
 	transform: scale(var(--brandon-press-scale));
@@ -106,6 +127,7 @@
 }
 
 /* Invisible Calibrator to set mask width automatically */
+/* [ADDED] This entire rule was missing and is essential for the button reveal effect */
 .brandon-logo-reveal-width-calibrator,
 .brandon-button-reveal-width-calibrator {
 	visibility: hidden;
@@ -189,24 +211,17 @@
 
 /* ========== BRANDON NAMESPACE: DOTS GRID MENU ICON ========== */
 .brandon-dots-grid-trigger {
-	/* Aligns the trigger container with other nav items like "WORK" */
 	display: inline-flex;
 	align-items: center;
-	/* Use 1em to match the line-height of the text links */
-	height: 1em; 
-	/* Sets the context for the height (matches other nav links) */
-	font-size: 1rem; 
+	justify-content: center;
+	width: 2.5rem;
+	height: 1rem;
 	cursor: pointer;
-	/* Removes any default browser padding for buttons */
-	padding: 0;
-	margin: 0; 
-	/* Ensures vertical alignment is consistent with text */
-	vertical-align: middle; 
+	margin-left: 1rem;
 }
 
 .brandon-dots-grid {
 	position: relative;
-	/* Defines the 24x24 canvas for the dots */
 	width: 24px;
 	height: 24px;
 	display: flex;
@@ -220,14 +235,51 @@
 	height: 4px;
 	background-color: var(--brandon-dot-color);
 	border-radius: 50%;
-	/* GSAP will now handle all transforms, so CSS transitions are removed */
-	will-change: transform, opacity;
+	transform-origin: center center;
+	/* transition: transform 0.3s var(--brandon-transition-ease), opacity 0.3s var(--brandon-transition-ease);
 }
 
-/* Initial positioning via nth-child is no longer needed, 
-  as GSAP now handles the entire layout from grid to "X".
-  This simplifies the CSS significantly.
-*/
+.brandon-dots-grid .brandon-dot:nth-child(1) {  
+	top: 0;  
+	left: 0;  
+}
+.brandon-dots-grid .brandon-dot:nth-child(2) {  
+	top: 0;  
+	left: 50%;  
+	transform: translateX(-50%);  
+}
+.brandon-dots-grid .brandon-dot:nth-child(3) {  
+	top: 0;  
+	right: 0;  
+}
+.brandon-dots-grid .brandon-dot:nth-child(4) {  
+	top: 50%;  
+	left: 0;  
+	transform: translateY(-50%);  
+}
+.brandon-dots-grid .brandon-dot:nth-child(5) {  
+	top: 50%;  
+	left: 50%;  
+	transform: translate(-50%, -50%);  
+}
+.brandon-dots-grid .brandon-dot:nth-child(6) {  
+	top: 50%;  
+	right: 0;  
+	transform: translateY(-50%);  
+}
+.brandon-dots-grid .brandon-dot:nth-child(7) {  
+	bottom: 0;  
+	left: 0;  
+}
+.brandon-dots-grid .brandon-dot:nth-child(8) {  
+	bottom: 0;  
+	left: 50%;  
+	transform: translateX(-50%);  
+}
+.brandon-dots-grid .brandon-dot:nth-child(9) {  
+	bottom: 0;  
+	right: 0;  
+}
 
 /* ========== BRANDON NAMESPACE: CANVAS BACKGROUND LAYERS ========== */
 smp-section.brandon-bg-load-wave,
@@ -305,6 +357,10 @@ smp-section.brandon-bg-main-bg2 .smp-content-wrapper {
 		--brandon-font-size-small: 11pt;
 		--brandon-blur-amount: 4px;
 	}
+	
+	.brandon-glass-card {
+		border-radius: 8px;
+	}
 }
 
 @media (max-width: 480px) {
@@ -322,10 +378,76 @@ smp-section.brandon-bg-main-bg2 .smp-content-wrapper {
 
 /* ========== BRANDON NAMESPACE: PERFORMANCE OPTIMIZATIONS ========== */
 .brandon-animated-button-reveal,
-.brandon-logo-reveal-link {
+.brandon-logo-reveal-link,
+.brandon-glass-card {
 	will-change: transform;
 	transform: translateZ(0);
 	backface-visibility: hidden;
 }
 
+/* ========== BRANDON NAMESPACE: CUSTOM CURSOR ========== */
+.brandon-custom-cursor {
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	pointer-events: none;
+	z-index: 9999;
+	mix-blend-mode: difference;
+	transition: transform 0.1s ease;
+}
+
+.brandon-cursor-dot {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 8px;
+	height: 8px;
+	background: var(--brandon-text-color);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	transition: width 0.3s var(--brandon-transition-ease),
+				height 0.3s var(--brandon-transition-ease),
+				background 0.3s var(--brandon-transition-ease);
+}
+
+.brandon-cursor-hover .brandon-cursor-dot {
+	width: 40px;
+	height: 40px;
+	background: var(--brandon-accent-color);
+	opacity: 0.5;
+}
+
+/* Hide default cursor when custom cursor is active */
+body {
+	cursor: none;
+}
+
+/* Show default cursor on touch devices */
+@media (hover: none) {
+	.brandon-custom-cursor {
+		display: none;
+	}
+	body {
+		cursor: auto;
+	}
+}
+
+/* ========== BRANDON NAMESPACE: PARALLAX CONTAINER ========== */
+.brandon-parallax {
+	overflow: hidden;
+	will-change: transform;
+}
+
+/* ========== BRANDON NAMESPACE: SCROLL REVEAL ========== */
+.brandon-reveal {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.6s var(--brandon-transition-ease),
+				transform 0.6s var(--brandon-transition-ease);
+}
+
+.brandon-reveal.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
 /* Custom CSS End */
