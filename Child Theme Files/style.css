@@ -236,7 +236,7 @@
 	background-color: var(--brandon-dot-color);
 	border-radius: 50%;
 	transform-origin: center center;
-	/* transition: transform 0.3s var(--brandon-transition-ease), opacity 0.3s var(--brandon-transition-ease);
+       /* transition: transform 0.3s var(--brandon-transition-ease), opacity 0.3s var(--brandon-transition-ease); */
 }
 
 /*
