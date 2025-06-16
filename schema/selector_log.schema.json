@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "selector",
+      "purpose"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^SEL-\\d{3}$"
+      },
+      "selector": {
+        "type": "string"
+      },
+      "purpose": {
+        "type": "string"
+      }
+    }
+  }
+}

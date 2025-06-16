@@ -1,0 +1,487 @@
+[
+  {
+    "id": "SEL-001",
+    "selector": ".placeholder-1",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-002",
+    "selector": ".placeholder-2",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-003",
+    "selector": ".placeholder-3",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-004",
+    "selector": ".placeholder-4",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-005",
+    "selector": ".placeholder-5",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-006",
+    "selector": ".placeholder-6",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-007",
+    "selector": ".placeholder-7",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-008",
+    "selector": ".placeholder-8",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-009",
+    "selector": ".placeholder-9",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-010",
+    "selector": ".placeholder-10",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-011",
+    "selector": ".placeholder-11",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-012",
+    "selector": ".placeholder-12",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-013",
+    "selector": ".placeholder-13",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-014",
+    "selector": ".placeholder-14",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-015",
+    "selector": ".placeholder-15",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-016",
+    "selector": ".placeholder-16",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-017",
+    "selector": ".placeholder-17",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-018",
+    "selector": ".placeholder-18",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-019",
+    "selector": ".placeholder-19",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-020",
+    "selector": ".placeholder-20",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-021",
+    "selector": ".placeholder-21",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-022",
+    "selector": ".placeholder-22",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-023",
+    "selector": ".placeholder-23",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-024",
+    "selector": ".placeholder-24",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-025",
+    "selector": ".placeholder-25",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-026",
+    "selector": ".placeholder-26",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-027",
+    "selector": ".placeholder-27",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-028",
+    "selector": ".placeholder-28",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-029",
+    "selector": ".placeholder-29",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-030",
+    "selector": ".placeholder-30",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-031",
+    "selector": ".placeholder-31",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-032",
+    "selector": ".placeholder-32",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-033",
+    "selector": ".placeholder-33",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-034",
+    "selector": ".placeholder-34",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-035",
+    "selector": ".placeholder-35",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-036",
+    "selector": ".placeholder-36",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-037",
+    "selector": ".placeholder-37",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-038",
+    "selector": ".placeholder-38",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-039",
+    "selector": ".placeholder-39",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-040",
+    "selector": ".placeholder-40",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-041",
+    "selector": ".placeholder-41",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-042",
+    "selector": ".placeholder-42",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-043",
+    "selector": ".placeholder-43",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-044",
+    "selector": ".placeholder-44",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-045",
+    "selector": ".placeholder-45",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-046",
+    "selector": ".placeholder-46",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-047",
+    "selector": ".placeholder-47",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-048",
+    "selector": ".placeholder-48",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-049",
+    "selector": ".placeholder-49",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-050",
+    "selector": ".placeholder-50",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-051",
+    "selector": ".placeholder-51",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-052",
+    "selector": ".placeholder-52",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-053",
+    "selector": ".placeholder-53",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-054",
+    "selector": ".placeholder-54",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-055",
+    "selector": ".placeholder-55",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-056",
+    "selector": ".placeholder-56",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-057",
+    "selector": ".placeholder-57",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-058",
+    "selector": ".placeholder-58",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-059",
+    "selector": ".placeholder-59",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-060",
+    "selector": ".placeholder-60",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-061",
+    "selector": ".placeholder-61",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-062",
+    "selector": ".placeholder-62",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-063",
+    "selector": ".placeholder-63",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-064",
+    "selector": ".placeholder-64",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-065",
+    "selector": ".placeholder-65",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-066",
+    "selector": ".placeholder-66",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-067",
+    "selector": ".placeholder-67",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-068",
+    "selector": ".placeholder-68",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-069",
+    "selector": ".placeholder-69",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-070",
+    "selector": ".placeholder-70",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-071",
+    "selector": ".placeholder-71",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-072",
+    "selector": ".placeholder-72",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-073",
+    "selector": ".placeholder-73",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-074",
+    "selector": ".placeholder-74",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-075",
+    "selector": ".placeholder-75",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-076",
+    "selector": ".placeholder-76",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-077",
+    "selector": ".placeholder-77",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-078",
+    "selector": ".placeholder-78",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-079",
+    "selector": ".placeholder-79",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-080",
+    "selector": ".placeholder-80",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-081",
+    "selector": ".placeholder-81",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-082",
+    "selector": ".placeholder-82",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-083",
+    "selector": ".placeholder-83",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-084",
+    "selector": ".placeholder-84",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-085",
+    "selector": ".placeholder-85",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-086",
+    "selector": ".placeholder-86",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-087",
+    "selector": ".placeholder-87",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-088",
+    "selector": ".placeholder-88",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-089",
+    "selector": ".placeholder-89",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-090",
+    "selector": ".placeholder-90",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-091",
+    "selector": ".placeholder-91",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-092",
+    "selector": ".placeholder-92",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-093",
+    "selector": ".placeholder-93",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-094",
+    "selector": ".placeholder-94",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-095",
+    "selector": ".placeholder-95",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-096",
+    "selector": ".placeholder-96",
+    "purpose": "demo"
+  },
+  {
+    "id": "SEL-097",
+    "selector": ".placeholder-97",
+    "purpose": "demo"
+  }
+]

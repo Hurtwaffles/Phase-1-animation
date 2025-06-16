@@ -1,0 +1,18 @@
+[
+  {
+    "id": "WF-001",
+    "step": "Placeholder workflow step 1"
+  },
+  {
+    "id": "WF-002",
+    "step": "Placeholder workflow step 2"
+  },
+  {
+    "id": "WF-003",
+    "step": "Placeholder workflow step 3"
+  },
+  {
+    "id": "WF-004",
+    "step": "Placeholder workflow step 4"
+  }
+]
