@@ -187,5 +187,85 @@ AI/LLM KNOWN ISSUES LOG:
     2. Wrap updates in clear comment blocks so copy/paste is seamless.
   Confirm understanding clearly: [Yes/No] ______
 
+## Known Issues & Conflicts Log - Semplice Child Theme
+
+**Last Updated:** 2025-06-15 23:55:56 UTC
+
+---
+
+**Issue #1: P5.js Background Initialization Failure ("Max wait time reached")**
+
+*   **Symptoms:**
+    *   P5.js canvas/sketch is not visible on the page.
+    *   Console error: `[BRANDON CUSTOM] P5 Init: Max wait time reached for "[sketch-label]". Could not initialize.`
+*   **Potential Causes & Diagnostics:**
+    1.  **Container Dimensions:** The HTML element intended to host the P5 canvas (e.g., `div.brandon-main-background`) or its direct parent (e.g., `smp-section.brandon-bg-main-bg`) might lack explicit `width` and `height` at the time of P5 initialization. If the parent section has 0 height (e.g., because it only contains absolutely positioned children or has no content to give it height), a P5 container div styled with `height: 100%` will also resolve to 0 height.
+        *   **Check:** Log dimensions of the P5 container and its parent section during the `waitForElementSizeAndInit` function.
+        *   **Fix:** Ensure the Semplice section (`smp-section.brandon-bg-...`) has an explicit CSS `min-height` (e.g., `100vh`) or `height`. Ensure the dynamically injected P5 container `div` is styled to fill this parent (e.g., `position: absolute; width: 100%; height: 100%; top: 0; left: 0;`). The parent section should be `position: relative`.
+    2.  **JavaScript Syntax Errors:** A JS syntax error elsewhere in the custom script can halt execution before P5.js initialization code runs or corrupts its execution.
+        *   **Check:** If all custom console logs disappear, suspect a syntax error. Use browser DevTools to identify it.
+        *   **Fix:** Correct the syntax error.
+    3.  **Timing Issues:** P5.js might attempt to initialize before the DOM is fully ready or styled.
+        *   **Fix:** The `waitForElementSizeAndInit` function with a timeout and retry mechanism is designed to handle this, but ensure it's robust. Explicitly styling the P5 container div upon creation can also help.
+*   **Resolution (from session):** Corrected a JS syntax error in `createSafeP5Instance` (v2.6.7.8). Ensured P5 container div is explicitly styled with `position:absolute; width:100%; height:100%;` and its parent `smp-section` is `position:relative`. Added more detailed dimension logging.
+
+---
+
+**Issue #2: GSAP Animations Not Visually Tweening (or partially working) Despite Correct Final Styles**
+
+*   **Symptoms:**
+    *   Elements animated with GSAP snap to their final position without smooth tweening.
+    *   Only some elements in an animated set appear to move.
+    *   Browser DevTools (Inspect Element) show that GSAP *is* correctly setting the final inline `transform` or `opacity` styles on the elements *after* the supposed animation duration.
+*   **Potential Causes & Diagnostics:**
+    1.  **CSS `transition` Conflict:** A CSS `transition` property defined on the same elements (or a parent affecting children) for the same properties GSAP is trying to animate (commonly `transform`, `opacity`). The browser's CSS transition engine "fights" GSAP's per-frame inline style changes.
+        *   **Check:** Inspect the CSS rules for the animated elements in DevTools.
+        *   **Fix:** **Remove or comment out the conflicting CSS `transition` property.** Allow GSAP to fully control the animation timing, easing, and property changes. This was the critical fix for the dot grid side-middle dots.
+*   **Resolution (from session):** Advised and confirmed removal of `transition` property from `.brandon-dots-grid .brandon-dot` CSS rule.
+
+---
+
+**Issue #3: Incorrect Initial State of GSAP-Positioned Elements**
+
+*   **Symptoms:**
+    *   Elements intended to be in a specific layout (e.g., a 3x3 grid) appear stacked or incorrectly positioned on page load *before* any animation is triggered.
+*   **Potential Causes & Diagnostics:**
+    1.  **`gsap.set()` Application:** If using a function-based value with `gsap.set()` across a collection of elements, ensure GSAP correctly distributes the distinct values to each target.
+        *   **Fix:** For robust initial positioning of multiple unique elements, iterate through the collection and apply `gsap.set()` to each element individually with its specific target properties.
+    2.  **Overriding CSS `transform`:** Base CSS rules for the elements might apply a `transform` that conflicts with GSAP's initial `x` and `y` positioning.
+        *   **Fix:** Remove conflicting base CSS `transform` properties if GSAP is intended to solely manage the element's position from a (0,0) relative origin.
+*   **Resolution (from session):** Modified `initializeDotsGridMenu` to use a `forEach` loop to `gsap.set()` the initial `x` and `y` for each dot individually (v2.6.7.4).
+
+---
+
+**Issue #4: Semplice Overlay Menu Not Triggering Consistently from Custom Buttons**
+
+*   **Symptoms:**
+    *   Clicking custom elements (e.g., the dot grid icon, "WORK" button) that are intended to open the Semplice overlay menu fails to do so.
+*   **Potential Causes & Diagnostics:**
+    1.  **Event Handler Logic:** The JavaScript event handler might not be correctly identifying and programmatically clicking the Semplice theme's native menu trigger/hamburger icon.
+        *   **Fix:** Use a robust set of selectors to find the Semplice hamburger (e.g., `.open-menu.menu-icon`, `.hamburger`, `[data-module="menu"] .hamburger`). Ensure `.click()` is called on the found element.
+    2.  **JavaScript Errors:** Other JS errors in the script could prevent the event handlers from being attached or executing correctly.
+        *   **Fix:** Resolve any preceding JS errors (especially syntax errors).
+    3.  **Event Propagation/Default Prevention:** Incorrect use of `e.preventDefault()` or `e.stopPropagation()` could interfere.
+        *   **Fix:** Ensure `e.preventDefault()` is used appropriately if the custom trigger is an anchor, but ensure it doesn't stop other necessary event flows.
+*   **Resolution (from session):** Refined `initializeButtonHandlers` to reliably find and click the Semplice hamburger for any element classed `.brandon-work-menu-trigger` (v2.6.7.3 and maintained).
+
+---
+
+**Issue #5: Complete Loss of Custom Console Logs & Script Functionality**
+
+*   **Symptoms:**
+    *   No `[BRANDON CUSTOM]` log messages appear in the console on page load or interaction.
+    *   All custom script functionalities (animations, event handlers) cease to work.
+*   **Potential Causes & Diagnostics:**
+    1.  **JavaScript Syntax Error:** This is the most common cause. A single syntax error (e.g., missing brace, comma, parenthesis, keyword typo) can prevent the entire JavaScript file from being parsed and executed by the browser.
+        *   **Check:** Open the browser's Developer Console. It will usually report syntax errors and the line number on page load.
+        *   **Fix:** Meticulously review the script for syntax errors, paying close attention to the area of the last change or the line reported by the browser.
+*   **Resolution (from session):** Identified and fixed a missing opening curly brace in a `catch` block within `createSafeP5Instance` (v2.6.7.8).
+
+---
+
+
 
 [Prompt for Brandon: "Provide clear details or historical solutions to recurring issues you have faced."]
